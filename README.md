@@ -18,6 +18,8 @@ Configuration :
   * password:
   * socket: /Applications/XAMPP/xamppfiles/var/mysql/mysql.sock
   
+  * username : tatasutiadi/tata
+  * username : ehsan/ehsan
   
   <h3>Screenshot</h3>
   
