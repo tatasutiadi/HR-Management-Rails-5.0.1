@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 30, 2017 at 03:24 PM
+-- Generation Time: Jan 30, 2017 at 05:15 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 7.0.9
 
@@ -377,8 +377,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `salt_password`, `auth_key`, `language`, `role_id`, `create_at`, `update_at`) VALUES
 (1, 'Test', 'Test', 'Test', 'Test', '', NULL, '2017-01-20 00:00:00', '2017-01-20 00:00:00'),
-(2, 'tatasutiadi', '$2a$10$gdTklivc/hXVLfWFU3ozQO', '$2a$10$gdTklivc/hXVLfWFU3ozQOo3UI.ObkRUeCJahX.J9jnwnHnSxn6ye', NULL, 'EN', NULL, '2017-01-29 22:28:52', '2017-01-29 22:28:52'),
-(4, 'ehsan', '$2a$10$E3fuf27E.T6A8nB5HoYisu', '$2a$10$E3fuf27E.T6A8nB5HoYisucmF3ZSyNxHk0PoVlBQ8cwxTqzCfFfbO', NULL, 'ID', NULL, '2017-01-29 17:59:01', '2017-01-29 17:59:01');
+(2, 'tatasutiadi', '$2a$10$COhvsZtehLNgkQ6T07c9xe', '$2a$10$COhvsZtehLNgkQ6T07c9xeYGN6ZwDs/PgPJiXneDG8E6OMt1VW81K', NULL, 'EN', NULL, '2017-01-29 22:28:52', '2017-01-29 22:28:52'),
+(4, 'ehsan', '$2a$10$L9/nRfMrJDGx6a./tJvgRu', '$2a$10$L9/nRfMrJDGx6a./tJvgRuLG6hGk2VQnz/INNJRvFs.gQRAInyQN.', NULL, 'ID', NULL, '2017-01-29 17:59:01', '2017-01-29 17:59:01');
 
 --
 -- Indexes for dumped tables
@@ -492,7 +492,7 @@ ALTER TABLE `departements`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `employee_trainings`
 --
@@ -542,7 +542,7 @@ ALTER TABLE `status_maritals`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

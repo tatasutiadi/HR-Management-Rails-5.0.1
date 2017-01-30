@@ -7,7 +7,8 @@ class User < ApplicationRecord
 
 	# attr_accessor :password
 	# validates_confirmation_of :password
-	before_save :encrypt_password
+	# before_save :encrypt_password
+	before_create :encrypt_password
 
 	def encrypt_password
 		pass = self.password

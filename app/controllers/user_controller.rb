@@ -45,9 +45,9 @@ class UserController < ApplicationController
 
 	def setlanguage
 		@lang = params[:lang]
-		@user = User.find_by(username: "#{session[:username]}")
+		@user = User.find(session[:user_id])
 		@user.update(language: "#{@lang}")
-
+		# User.update_
 		respond_to do |format|
 			format.html
 			format.json {render json: true}
