@@ -1,0 +1,196 @@
+
+<%#= image_tag @emp.photo.url %>
+<%#= image_tag @emp.photo.url(:medium) %>
+<%#= image_tag @emp.photo.url(:thumb) %>
+
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>View Employee <small></small></h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+          <div class="profile_img">
+            <div id="crop-avatar">
+              <!-- Current avatar -->
+              <% if @emp.photo.url(:medium).present?%>
+                  <%= image_tag @emp.photo.url(:medium),:class => 'img-responsive avatar-view' %>
+              <% else%>
+                  <img class="img-responsive avatar-view" src="<%= request.protocol + request.host_with_port %>/no_avatar.jpg" alt="Avatar" title="Change the avatar">
+              <% end%>
+            </div>
+          </div>
+          <h3><%= @emp.employee_name%></h3>
+
+          <ul class="list-unstyled user_data">
+            <li><i class="fa fa-map-marker user-profile-icon"></i> <%= !@emp.address.nil? ? @emp.address : 'NotSet' %>
+            </li>
+
+            <li>
+              <i class="fa fa-briefcase user-profile-icon"></i> <%= @emp.position.position_name%>
+            </li>
+
+          </ul>
+          <%= link_to "<i class='fa fa-edit m-right-xs'></i> Edit Profile".html_safe, edit_employee_path ,:class => "btn btn-success"%>
+          <br />
+
+          <!-- start skills -->
+          <!--<h4>Skills</h4>-->
+          <!--<ul class="list-unstyled user_data">-->
+            <!--<li>-->
+              <!--<p>Web Applications</p>-->
+              <!--<div class="progress progress_sm">-->
+                <!--<div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>-->
+              <!--</div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<p>Website Design</p>-->
+              <!--<div class="progress progress_sm">-->
+                <!--<div class="progress-bar bg-green" role="progressbar" data-transitiongoal="70"></div>-->
+              <!--</div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<p>Automation & Testing</p>-->
+              <!--<div class="progress progress_sm">-->
+                <!--<div class="progress-bar bg-green" role="progressbar" data-transitiongoal="30"></div>-->
+              <!--</div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<p>UI / UX</p>-->
+              <!--<div class="progress progress_sm">-->
+                <!--<div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>-->
+              <!--</div>-->
+            <!--</li>-->
+          <!--</ul>-->
+          <!-- end of skills -->
+
+        </div>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+
+          <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Education</a>
+              </li>
+              <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Training</a>
+              </li>
+              <!--<li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false"></a>-->
+              <!--</li>-->
+            </ul>
+            <div id="myTabContent" class="tab-content">
+              <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                <%= link_to '+', '#create', :class => "btn btn-primary",:onclick=>"showDialog('history_education', '#{@emp.employee_id}/new');return false;" ,'data-toggle' => 'modal', 'data-target' => '#detail-modal' %>
+                <table class="data table table-striped no-margin">
+                  <thead>
+                  <tr>
+                    <th width="35px">ID</th>
+                    <th>Start Year</th>
+                    <th>End Year</th>
+                    <th>Education Name</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% @his_employee.each do |data| %>
+                      <tr>
+                        <td><%= data.hemployee_id %></td>
+                        <td><%= data.start_year %></td>
+                        <td><%= data.end_year %></td>
+                        <td><%= data.placeeducation %></td>
+                        <td>
+                          <%= link_to "<i class='fa fa-pencil'></i> Edit".html_safe, '#edit' ,:onclick=>"showDialog('history_education', '#{data.hemployee_id}/edit');return false;" ,:title => "Edit Data",:class => "btn btn-info btn-xs","data-toggle" => "modal", 'data-target' => '#detail-modal' %>
+                          <%= link_to "<i class='fa fa-trash-o'></i> Delete".html_safe, { controller: 'history_education' ,action:"delete" ,:id=>data.hemployee_id,:idemp=>data.employee_id} ,{:onclick=>"return confirm('are you sure?')",:class => "btn btn-danger btn-xs",:title => "Delete Data"}   %>
+                        </td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+
+              </div>
+              <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                <%= link_to '+', '#create', :class => "btn btn-primary",:onclick=>"showDialog('employee_training', '#{@emp.employee_id}/new');return false;" ,'data-toggle' => 'modal', 'data-target' => '#detail-modal' %>
+                <table class="data table table-striped no-margin">
+                  <thead>
+                  <tr>
+                    <th>Date of Training</th>
+                    <th>Topic Training</th>
+                    <th>Organizer</th>
+                    <th>Result</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% @training.each do |data| %>
+                      <tr>
+                        <td><%= data.training_date %></td>
+                        <td><%= data.training_topic %></td>
+                        <td><%= data.organizer %></td>
+                        <td><%= data.training_result %></td>
+                        <td>
+                          <%= link_to "<i class='fa fa-pencil'></i> Edit".html_safe, '#edit' ,:onclick=>"showDialog('employee_training', '#{data.training_id}/edit');return false;" ,:title => "Edit Data",:class => "btn btn-info btn-xs","data-toggle" => "modal", 'data-target' => '#detail-modal' %>
+                          <%= link_to "<i class='fa fa-trash-o'></i> Delete".html_safe, { controller: 'employee_training' ,action:"delete" ,:id=>data.training_id,:idemp=>data.employee_id} ,{:onclick=>"return confirm('are you sure?')",:class => "btn btn-danger btn-xs",:title => "Delete Data"}   %>
+                        </td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+
+
+
+              </div>
+              <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
+                  photo booth letterpress, commodo enim craft beer mlkshk </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <!--<h4 class="modal-title" id="myModalLabel">View #</h4>-->
+      </div>
+      <div class="modal-body">
+        <div id="detail-modal-body"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+
+    function showDialog(model, id) {
+        idemp = "<%= @emp.employee_id%>"
+        var request = $.ajax({
+            url: '/'+model+'/' + id + '.js',
+            cache: 'false',
+            dataType: 'html',
+            type: 'GET'
+        });
+
+        request.done(function( msg ) {
+            $( "#detail-modal-body" ).html( msg );
+        });
+        request.fail(function( xhr, textStatus ) {
+            var msg = "<h3>Request failed: " + textStatus +"</h3>";
+            msg +="<h3>Ready State: "+xhr.readyState+"</h3>";
+            msg+= "<h3>Status: "+xhr.status+"</h3>";
+            // msg += "<h3>Response Text:</h3>"+xhr.responseText;
+            $( "#detail-modal-body" ).html( msg );
+        });
+    }
+</script>

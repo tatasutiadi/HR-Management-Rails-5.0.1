@@ -1,0 +1,54 @@
+<link href="<%= request.protocol + request.host_with_port %>/datepicker/css/datepicker.min.css" rel="stylesheet">
+<script src="<%= request.protocol + request.host_with_port %>/datepicker/js/datepicker.min.js"></script>
+
+<%= form_for(model) do |f| %>
+  <% if @model.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@model.errors.count, "error") %> prohibited this micropost from being saved:</h2>
+
+      <ul>
+      <% @model.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :employee_id, class: 'form-control',required:"required" %>
+  <div class="form-group">
+    <%= f.label :training_date, class: 'control-label' %><br>
+    <%= f.text_field :training_date, class: 'form-control datepicker',required:"required" %>
+    <span class="help-block"></span>
+  </div>
+
+   <div class="form-group">
+     <%= f.label :training_topic, class: 'control-label' %><br>
+     <%= f.text_field :training_topic, class: 'form-control',required:"required" %>
+     <span class="help-block"></span>
+   </div>
+
+   <div class="form-group">
+     <%= f.label :organizer, class: 'control-label' %><br>
+     <%= f.text_area :organizer, class: 'form-control' %>
+     <span class="help-block"></span>
+   </div>
+
+   <div class="form-group">
+     <%= f.label :training_result, class: 'control-label' %><br>
+     <%= f.text_area :training_result, class: 'form-control' %>
+     <span class="help-block"></span>
+   </div>
+
+  <div class="actions">
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<script>
+    $(document).ready(function() {
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+//            startDate: '-3d'
+        });
+    });
+</script>

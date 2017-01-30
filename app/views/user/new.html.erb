@@ -1,0 +1,37 @@
+<div>
+  <div class="login_wrapper">
+    <div class="animate form login_form">
+      <section class="login_content">
+        <%#= form_for login,url:auth_path, html: { method: :post} do |f| %>
+        <%= form_tag(auth_path) do%>
+        <%#= form_for @User,url: auth_path, html: { method: :post,} do |f| %>
+            <h1>Login Form</h1>
+            <%= text_field_tag "username", '',class:'form-control',placeholder:"Username",required:"" %>
+            <%= password_field_tag 'password','', class: 'form-control',placeholder:"Password",required:"" %>
+
+            <% if flash[:alert] %>
+                <div class="alert alert-danger">
+                  <p><i class="fa fa-warning"></i>  <%= flash[:alert] %></p>
+                </div>
+            <% end %>
+            <!-- Change this to a button or input when using this as a form -->
+            <button class="btn btn-default submit">Login</button>
+            <a class="reset_pass" href="#">Lost your password?</a>
+            <div class="clearfix"></div>
+
+            <div class="separator">
+
+              <div class="clearfix"></div>
+              <br />
+
+              <div>
+                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+              </div>
+            </div>
+        <% end %>
+
+      </section>
+    </div>
+  </div>
+</div>

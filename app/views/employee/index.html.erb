@@ -1,0 +1,72 @@
+<div class="row"> 
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Manage Employee</h2> &nbsp;&nbsp;
+        <%= link_to "<i class='fa fa-plus-square'></i>".html_safe, addemployee_path, :class => "btn btn-primary"  %>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+        <div class="x_content">
+          <br/>
+          <table id="employeetable" class="table table-striped table-bordered">
+            <thead>
+            <tr>
+              <th>NIP</th>
+              <th>Employee Name</th>
+              <th>Gender</th>
+              <th>Date Of Entry</th>
+              <th>Departement</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @emp.each do |data| %>
+                <tr>
+                  <td><%= data.NIP %></td>
+                  <td><%= data.employee_name %></td>
+                  <td><%= data.gender %></td>
+                  <td><%= data.dateofentry %></td>
+                  <td><%= data.departement_id.present? ? data.departement.departement_name : nil %></td>
+                  <td>
+                    <%= link_to "<i class='fa fa-folder'></i> View".html_safe, data ,:class => "btn btn-primary btn-xs" , :title => "View Data"%>
+                    <%= link_to "<i class='fa fa-pencil'></i> Edit".html_safe, edit_employee_path(data) ,:title => "Edit Data",:class => "btn btn-info btn-xs"%>
+                    <%= link_to "<i class='fa fa-trash-o'></i> Delete".html_safe, { controller: params[:controller] ,action:"delete" ,:id=>data.employee_id} ,{:onclick=>"return confirm('are you sure?')",:class => "btn btn-danger btn-xs",:title => "Delete Data"}   %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <!--<h4 class="modal-title" id="myModalLabel">View #</h4>-->
+      </div>
+      <div class="modal-body">
+        <div id="detail-modal-body"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+
+    $(document).ready(function(){
+        $('#employeetable').DataTable();
+    });
+</script>

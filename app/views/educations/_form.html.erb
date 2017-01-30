@@ -1,0 +1,24 @@
+ <%= form_for(model) do |f| %>
+  <% if @model.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@education.errors.count, "error") %> prohibited this micropost from being saved:</h2>
+
+      <ul>
+      <% @education.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="form-group">
+    <%= f.label :education_name, class: 'control-label' %><br>
+    <%= f.text_field :education_name, class: 'form-control',required:"required" %>
+    <span class="help-block"></span>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -1,0 +1,3 @@
+class StatusMarital < ApplicationRecord
+
+end

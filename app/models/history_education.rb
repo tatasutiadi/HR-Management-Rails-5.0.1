@@ -1,0 +1,3 @@
+class HistoryEducation < ApplicationRecord
+
+end

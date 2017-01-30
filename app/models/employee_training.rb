@@ -1,0 +1,3 @@
+class EmployeeTraining < ApplicationRecord
+
+end

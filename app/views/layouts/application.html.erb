@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SIMPEG V.01</title>
+    <%= csrf_meta_tags %>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <%= stylesheet_link_tag  "application" %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  </head>
+  <% if !@login%>
+    <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="<%= request.protocol + request.host_with_port %>" class="site_title"><i class="fa fa-paw"></i> <span>SIMPEG V.01</span></a>
+            </div>
+            <div class="clearfix"></div>
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <% @img = Employee.find(session['user_id'])%>
+                <% if @img.photo.url(:thumb).present?%>
+                    <%= image_tag(@img.photo.url(:thumb), :class=>"img-circle profile_img") %>
+                <% else%>
+                    <img class="img-circle profile_img" src="<%= request.protocol + request.host_with_port %>/no_avatar.jpg" alt="Avatar" title="Change the avatar">
+                <% end %>
+              </div>
+              <div class="profile_info">
+                <span><%= t(:welcome)%>,</span>
+                <h2><%= @img.employee_name %></h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+            <br />
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                  <li><%= link_to("<i class='fa fa-home'></i> Home".html_safe,request.protocol + request.host_with_port)%></li>
+                  <li><a><i class="fa fa-user"></i> <%= t(:employment)%><span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><%= link_to("#{t(:employee)}",{controller: "employee"})%></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i> <%= t(:master)%><span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><%= link_to("#{t(:bank)}",{controller: "banks"})%></li>
+                      <li><%= link_to("#{t(:education)}",{controller: "educations"})%></li>
+                      <li><%= link_to("#{t(:position)}",{controller: "positions"})%></li>
+                      <li><%= link_to("#{t(:religion)}",{controller: "religions"})%></li>
+                      <li><%= link_to("#{t(:departement)}",{controller: "departements"})%></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-sitemap"></i><%= t(:setting)%><span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <!--<li><%= link_to("#{t(:user)}",{ controller: "user" ,action:"index"})%></li>-->
+                      <li><%= link_to("#{t(:company)}",{controller: "companies"})%></li>
+                    </ul>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+            <!-- end sidebar-->
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Logout">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <% if @img.photo.url(:thumb).present?%>
+                        <%= image_tag(@img.photo.url(:thumb)) %>
+                    <% else%>
+                        <img src="<%= request.protocol + request.host_with_port %>/no_avatar.jpg" alt="Avatar" title="Change the avatar">
+                    <% end %>
+
+                    <%= @img.employee_name %>
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><%= link_to('Profile'.html_safe,"employee/#{@img.employee_id}")%></li>
+
+                    <li><%= link_to '<i class="fa fa-sign-out pull-right"></i> Log Out'.html_safe,logout_path%> </li>
+                  </ul>
+                </li>
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <img src="<%= request.protocol + request.host_with_port %>/<%= @img.user.language %>.png" width="25px" height="25px">
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled" role="menu">
+                    <li>
+
+                      <a href="#" onclick="setLang('ID');" >
+
+                        <span class="image">
+                          <img src="<%= request.protocol + request.host_with_port %>/ID.png" width="25px" height="25px">
+                          <b><font size="2"> &nbsp;&nbsp;&nbsp;&nbsp;INDONESIA</font></b>
+                        </span>
+
+                      </a>
+                    </li>
+                    <li>
+
+                      <a href="#" onclick="setLang('EN');" >
+                        <span class="image">
+                          <img src="<%= request.protocol + request.host_with_port %>/EN.png" width="25px" height="25px">
+                          <b><font size="2"> &nbsp;&nbsp;&nbsp;&nbsp;ENGLISH</font></b>
+                        </span>
+
+                      </a>
+                    </li>
+
+
+                  </ul>
+                </li>
+
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <%= yield %>
+        </div>
+        <!-- /page content -->
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+    <!-- load all js with app/stylesheets -->
+    <%= javascript_include_tag  "application" %>
+    </body>
+  <% else %>
+    <body class="login">
+    <%= yield %>
+    </body>
+  <% end%>
+
+</html>
+<script>
+function setLang(lang) {
+    $.ajax({
+        type:'GET',
+        url:"language/"+lang,
+//        data: { lang: lang },
+        cache: false,
+        dataType: "json",
+        success:function(data){
+            location.reload();
+        },
+        error: function (jqXHR, textStatus, errorThrown) { console.log(errorThrown);}
+    });
+    
+}
+</script>

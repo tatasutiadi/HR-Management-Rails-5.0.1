@@ -1,0 +1,35 @@
+ <%= form_for(model) do |f| %>
+  <% if @model.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@model.errors.count, "error") %> prohibited this micropost from being saved:</h2>
+
+      <ul>
+      <% @model.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :departement_code, class: 'control-label' %><br>
+    <%= f.text_field :departement_code, class: 'form-control',required:"required",readOnly:true,value: if model.departement_code.nil?
+                                                                                                         Custom.generate_departementCode
+                                                                                                       else
+                                                                                                           model.departement_code
+                                                                                                       end
+    %>
+    <span class="help-block"></span>
+  </div>
+
+   <div class="form-group">
+     <%= f.label :departement_name, class: 'control-label' %><br>
+     <%= f.text_field :departement_name, class: 'form-control',required:"required" %>
+     <span class="help-block"></span>
+   </div>
+
+
+  <div class="actions">
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>

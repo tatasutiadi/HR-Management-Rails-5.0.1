@@ -1,0 +1,242 @@
+<link href="<%= request.protocol + request.host_with_port %>/select2/css/select2.min.css" rel="stylesheet">
+<script src="<%= request.protocol + request.host_with_port %>/select2/js/select2.full.min.js"></script>
+<link href="<%= request.protocol + request.host_with_port %>/datepicker/css/datepicker.min.css" rel="stylesheet">
+<script src="<%= request.protocol + request.host_with_port %>/datepicker/js/datepicker.min.js"></script>
+
+<%= form_for @emp,html: { method: :post,:multipart => true} do |f| %>
+  <% if @emp.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@emp.errors.count, "error") %> prohibited this micropost from being saved:</h2>
+
+      <ul>
+      <% @emp.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :NIP, class: 'control-label' %> <i style="color:red">*</i> <br>
+          <%= f.text_field :NIP, class: 'form-control',:required => true %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :employee_name, class: 'control-label' %> <i style="color:red">*</i><br>
+          <%= f.text_field :employee_name, class: 'form-control' ,:required => true %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :placeofbirth,'Place Of Birth', class: 'control-label' %><br>
+          <%= f.text_field :placeofbirth, class: 'form-control'  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :dateofbirth,'Date of Birth', class: 'control-label' %><br>
+          <%= f.text_field :dateofbirth, class: 'form-control datepicker'  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :gender, class: 'control-label' %> <i style="color:red">*</i><br>
+
+          <%= f.radio_button :gender, 'L' %>
+          <%= f.label :gender, 'Male', :value => 'L' %>
+          <%= f.radio_button :gender, 'P' %>
+          <%= f.label :gender, 'Female', :value => 'P' %>
+
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :email, class: 'control-label' %><br>
+          <%= f.text_field :email, class: 'form-control'  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :address, class: 'control-label' %><br>
+          <%= f.text_area :address, class: 'form-control'  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :dateofentry,'Date Of Entry', class: 'control-label' %><br>
+          <%= f.text_field :dateofentry, class: 'form-control datepicker'  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :departement_id, class: 'control-label' %> <i style="color:red">*</i><br>
+          <%= f.collection_select(:departement_id,Departement.order(:departement_name),:departement_id,:departement_name, {include_blank: '- Pilih -'},{:class => 'form-control',required:'required'})  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :position_id, class: 'control-label' %> <i style="color:red">*</i><br>
+          <%= f.collection_select(:position_id,Position.order(:position_name),:position_id,:position_name, {include_blank: '- Pilih -'},{:class => 'form-control',required:'required'})  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :username, class: 'control-label' %> <i style="color:red">*</i><br>
+          <%= f.text_field :username, class: 'form-control',:required => true  ,disabled: @emp.user_id.nil? ? false : true ,:value=> @emp.user_id.nil? ? nil : @user.username %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :password, class: 'control-label' %> <i style="color:red">*</i><br>
+          <%= f.password_field :password, class: 'form-control' ,:required => true ,disabled: @emp.user_id.nil? ? false : true,:value=> @emp.user_id.nil? ? nil : @user.password %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :photo, class: 'control-label' %><br>
+          <%= f.file_field :photo %>
+          <%#= f.text_field :photo, class: 'form-control'  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :phonenumber,'Phone Number', class: 'control-label' %><br>
+          <%= f.text_field :phonenumber, class: 'form-control numbers-only'  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :mobilenumber,'Mobile Number', class: 'control-label' %><br>
+          <%= f.text_field :mobilenumber, class: 'form-control numbers-only'  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :NPWP, class: 'control-label' %><br>
+          <%= f.text_field :NPWP, class: 'form-control numbers-only'  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :religion_id, class: 'control-label' %><br>
+          <%= f.collection_select(:religion_id,Religion.all,:religion_id,:religion_name, {include_blank: '- Pilih -'},{:class => 'form-control'})  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :ktpnumber,'KTP Number', class: 'control-label' %><br>
+          <%= f.text_field :ktpnumber, class: 'form-control numbers-only'  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :accountnumber,'Account Number', class: 'control-label' %><br>
+          <%= f.text_field :accountnumber, class: 'form-control numbers-only'  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :bank_id, class: 'control-label' %><br>
+          <%= f.collection_select(:bank_id,Bank.all,:bank_id,:bank_name, {include_blank: '- Pilih -'},{:class => 'form-control'})  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :marital_id, class: 'control-label' %><br>
+          <%= f.collection_select(:marital_id,StatusMarital.all,:marital_id,:marital_name, {include_blank: '- Pilih -'},{:class => 'form-control'})  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :statusemployee_id,'Status Employee', class: 'control-label' %><br>
+          <%= f.collection_select(:statusemployee_id,StatusEmployee.all,:statusemployee_id,:statusemployee_name, {include_blank: '- Pilih -'},{:class => 'form-control'})  %>
+          <span class="help-block"></span>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <div class="actions">
+      <%= f.submit 'Save', class: 'btn btn-success' %>
+    </div>
+  </div>
+
+<% end %>
+
+<script>
+    function setNumbersOnly(obj){
+        var d = $(obj).attr('numeric');
+        var value = $(obj).val();
+        var orignalValue = value;
+        value = value.replace(/[0-9]*/g, "");
+        var msg = "Only Integer Values allowed.";
+
+        if (d == 'decimal') {
+            value = value.replace(/\./, "");
+            msg = "Only Numeric Values allowed.";
+        }
+
+        if (value != '') {
+            orignalValue = orignalValue.replace(/([^0-9].*)/g, "")
+            $(obj).val(orignalValue);
+        }
+    }
+    $(document).ready(function() {
+        $("#employee_departement_id").select2({
+//            placeholder: "Select a state",
+//            allowClear: true
+        });
+        $("#employee_position_id").select2();
+        $("#employee_marital_id").select2();
+        $("#employee_statusemployee_id").select2();
+        $("#employee_bank_id").select2();
+        $("#employee_religion_id").select2();
+        //numbers-only
+        $('.numbers-only').keyup(function() {
+            setNumbersOnly(this);
+        });
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+//            startDate: '-3d'
+        });
+    });
+</script>

@@ -1,0 +1,71 @@
+ <%= form_for(model) do |f| %>
+  <% if @model.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@model.errors.count, "error") %> prohibited this micropost from being saved:</h2>
+
+      <ul>
+      <% @model.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="form-group">
+    <%= f.label :company_name, class: 'control-label' %><br>
+    <%= f.text_field :company_name, class: 'form-control',required:"required" %>
+    <span class="help-block"></span>
+  </div>
+
+   <div class="form-group">
+     <%= f.label :company_address, class: 'control-label' %><br>
+     <%= f.text_area :company_address, class: 'form-control',required:"required" %>
+     <span class="help-block"></span>
+   </div>
+
+   <div class="form-group">
+     <%= f.label :company_profile, class: 'control-label' %><br>
+     <%= f.text_area :company_profile, class: 'form-control' %>
+     <span class="help-block"></span>
+   </div>
+
+   <div class="form-group">
+     <%= f.label :company_taxidentification, class: 'control-label' %><br>
+     <%= f.text_field :company_taxidentification, class: 'form-control numbers-only',required:"required" %>
+     <span class="help-block"></span>
+   </div>
+
+  <div class="actions">
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+ <script>
+     /**
+      * filter karakter selain number
+      */
+     function setNumbersOnly(obj){
+         var d = $(obj).attr('numeric');
+         var value = $(obj).val();
+         var orignalValue = value;
+         value = value.replace(/[0-9]*/g, "");
+         var msg = "Only Integer Values allowed.";
+
+         if (d == 'decimal') {
+             value = value.replace(/\./, "");
+             msg = "Only Numeric Values allowed.";
+         }
+
+         if (value != '') {
+             orignalValue = orignalValue.replace(/([^0-9].*)/g, "")
+             $(obj).val(orignalValue);
+         }
+     }
+     $( document ).ready(function(){
+         //numbers-only
+         $('.numbers-only').keyup(function() {
+             setNumbersOnly(this);
+         });
+     });
+ </script>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SIMPEG V.01</title>
+    <%= csrf_meta_tags %>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <%= stylesheet_link_tag  "application" %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <!--%= stylesheet_link_tag    'application', media: 'all', 'data-bootstrap.min-track': 'reload' %>-->
+    <!--%= stylesheet_link_tag    'application', media: 'all', 'data-bootstrap-track': 'reload' %>-->
+    <!--%= stylesheet_link_tag    'application', media: 'all', 'data-custom.min-track': 'reload' %>-->
+    <!--%= stylesheet_link_tag    'application', media: 'all', 'data-bootstrap-progressbar-3.3.4.min-track': 'reload' %>-->
+
+  </head>
+
+  <body class="nav-md">
+  <%= yield %>
+        <!-- load all js with app/stylesheets -->
+        <%= javascript_include_tag  "application" %>
+    <!-- jQuery -->
+    <!--%= javascript_include_tag 'application', 'data-jquery.min-track': 'reload' %>-->
+    <!-- Bootstrap -->
+    <!--%= javascript_include_tag 'application', 'data-bootstrap.min-track': 'reload' %>-->
+    <!-- Custom Theme Scripts -->
+    <!--%= javascript_include_tag 'application', 'data-custom.min-track': 'reload' %>-->
+    <!-- progress-bar js -->
+    <!--%= javascript_include_tag 'application', 'data-bootstrap-progressbar.min-track': 'reload' %>-->
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<div class="row"> 
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Manage Religion</h2> &nbsp;&nbsp;
+        <%= link_to '+', '#create', :class => "btn btn-primary",:onclick=>"showDialog('#{params[:controller]}', 'new');return false;" ,'data-toggle' => 'modal', 'data-target' => '#detail-modal' %>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+        <div class="x_content">
+          <br/>
+          <table id="religiontable" class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th width="35px">ID</th>
+                <th>Religion Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @model.each do |data| %>
+                <tr>
+                  <td><%= data.religion_id %></td>
+                  <td><%= data.religion_name %></td>
+                  <td>
+                      <%= link_to "<i class='fa fa-folder'></i> View".html_safe, '#view' ,:class => "btn btn-primary btn-xs" ,:onclick=>"showDialog('#{params[:controller]}', '#{data.religion_id}');return false;" , :title => "View Data","data-toggle" => "modal", 'data-target' => '#detail-modal'%>
+                      <%= link_to "<i class='fa fa-pencil'></i> Edit".html_safe, '#edit' ,:onclick=>"showDialog('#{params[:controller]}', '#{data.religion_id}/edit');return false;" ,:title => "Edit Data",:class => "btn btn-info btn-xs","data-toggle" => "modal", 'data-target' => '#detail-modal' %>
+                      <%= link_to "<i class='fa fa-trash-o'></i> Delete".html_safe, { controller: params[:controller] ,action:"delete" ,:id=>data.religion_id} ,{:onclick=>"return confirm('are you sure?')",:class => "btn btn-danger btn-xs",:title => "Delete Data"}   %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <!--<h4 class="modal-title" id="myModalLabel">View #</h4>-->
+      </div>
+      <div class="modal-body">
+        <div id="detail-modal-body"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+
+    function showDialog(model, id) {
+        var request = $.ajax({
+            url: '/'+model+'/' + id + '.js',
+            cache: 'false',
+            dataType: 'html',
+            type: 'GET'
+        });
+        request.done(function( msg ) {
+            $( "#detail-modal-body" ).html( msg );
+        });
+        request.fail(function( xhr, textStatus ) {
+            var msg = "<h3>Request failed: " + textStatus +"</h3>";
+            msg +="<h3>Ready State: "+xhr.readyState+"</h3>";
+            msg+= "<h3>Status: "+xhr.status+"</h3>";
+            // msg += "<h3>Response Text:</h3>"+xhr.responseText;
+            $( "#detail-modal-body" ).html( msg );
+        });
+    }
+
+    $(document).ready(function(){
+        $('#religiontable').DataTable();
+    });
+</script>
