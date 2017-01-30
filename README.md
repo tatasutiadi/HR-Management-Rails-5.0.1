@@ -19,5 +19,17 @@ Configuration :
   * socket: /Applications/XAMPP/xamppfiles/var/mysql/mysql.sock
   
   
+  <h3>Screenshot</h3>
+  
+  <br />
+  <img width="500px" src="https://github.com/Tatasutiadi/Employee-Management-Rails-5.0.1/blob/master/public/images/Screen%20Shot%202017-01-30%20at%2010.04.21%20PM.png" />
+  
+  <img width="500px" src="https://github.com/Tatasutiadi/Employee-Management-Rails-5.0.1/blob/master/public/images/Screen%20Shot%202017-01-30%20at%2010.03.06%20PM.png" />
+  
+  <img heigth="300px" src="https://github.com/Tatasutiadi/Employee-Management-Rails-5.0.1/blob/master/public/images/Screen%20Shot%202017-01-30%20at%2010.03.36%20PM.png" />
+  
+  <img width="500px" src="https://github.com/Tatasutiadi/Employee-Management-Rails-5.0.1/blob/master/public/images/Screen%20Shot%202017-01-30%20at%2010.04.03%20PM.png" />
+  
+  
   
 
